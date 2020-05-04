@@ -1,0 +1,36 @@
+<section class="container p-5">
+    <h3>{{isNew?"Add ":"Edit "}} Product</h3>
+
+    <form class="form" #f="ngForm">
+        <div>
+            <label>ProductId</label>
+            <input type="number" name="pid" [(ngModel)]="product.productId" class="form-control" 
+                [readonly]="!isNew" required="required" min="100" #pid="ngModel"/>
+            <ol *ngIf="(pid.touched || pid.dirty) && pid.invalid">
+                <li *ngIf="pid.errors.required">Can not be left blank</li>
+                <li *ngIf="pid.errors.min">Cannot be less than 100</li>
+            </ol>
+        </div>
+        <div>
+            <label>Product Name</label>
+            <input type="text" name="pnm" [(ngModel)]="product.productName" class="form-control" required #pnm="ngModel"
+            minlength="5"/>
+            <ol *ngIf="(pnm.touched||pnm.dirty) && pnm.invalid">
+                <li *ngIf="pnm.errors.required">Cannot be left blank</li>
+                <li *ngIf="pnm.errors.minlength">Cannot be less than 5 chars</li>
+            </ol>
+        </div>
+        
+        <div>
+            <label>Description</label>
+            <input type="text" name="des" [(ngModel)]="product.productDescription" class="form-control"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="text" name="price" [(ngModel)]="product.price" class="form-control"/>
+        </div>
+        <div class="text-right">
+            <button type="button" name="btnSave" class="btn btn-primary"[disabled]="f.invalid" (click)="save()">ADD</button>
+        </div>
+    </form>
+</section>
